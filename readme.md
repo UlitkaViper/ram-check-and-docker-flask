@@ -8,3 +8,8 @@ pip install -r requirements.txt
 ```python
 docker-compose up -d
 ```
+Потыкать запросы можно по адресу
+
+```python
+http://localhost:8080/
+```
