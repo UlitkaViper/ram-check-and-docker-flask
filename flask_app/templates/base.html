@@ -1,0 +1,69 @@
+{# templates/base.html #}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+  <script>
+    $(document).ready(function () {
+      $("#put_button").click(function () {
+          $.ajax({
+              url: '/user',
+              type: 'PUT',
+
+              data: {
+                  put_name: $("#put_name").val(),
+                  put_age: $("#put_age").val(),
+              },
+              success: function (response) {
+                  console.log(response)
+                  if (!response.error) {
+                      $("#result2").remove()
+                      $("#result").html(response.result)
+                  }
+                  else {
+                    $("#result").html("<h2>"+ "Error" + "</h2>")
+                  }
+
+
+              }
+          });
+
+      });
+    });  
+  </script>
+  <title>{{ title }}</title>
+</head>
+
+<body>
+  <h2>GET</h2>
+  <form action = "http://localhost:8080/user" method = "get">
+    <p>Enter Name:</p>
+    <p><input type = "text" name = "nm" value='{{ name }}'/></p>
+    <p><input type = "submit" value = "get request" /></p>
+  </form>
+  <h2>POST</h2>
+  <form action = "http://localhost:8080/user" method = "post">
+    <p>Name:</p>
+    <p><input type = "text" name = "post_name" value='{{ post_name }}'/></p>
+    <p>Age:</p>
+    <p><input type = "text" name = "post_age" value='{{ post_age }}'/></p>
+    <p><input type = "submit" value = "post request" /></p>
+  </form>
+  <h2>PUT</h2>
+  <p>Name:</p>
+  <p><input id="put_name" type = "text" name = "put_name" value='{{ put_name }}'/></p>
+  <p>Age:</p>
+  <p><input id="put_age" type = "text" name = "put_age" value='{{ put_age }}'/></p>
+  <p><input id="put_button" type = "submit" value = "put request" /></p>
+  <!-- </form> -->
+
+  
+<h2 id="result"></h2>
+ {% if result %}
+    <h2 id="result2">{{ result }}</h2>
+ {% endif %}
+
+</body>
+</html>
